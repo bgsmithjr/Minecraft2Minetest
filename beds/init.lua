@@ -27,7 +27,7 @@ minetest.register_craft({
 	burntime = 45,
 })
 
-minetest.register_node( 'beds:blue_top', {
+minetest.register_node( "beds:blue_top", {
 	Description         = '',
 	tile_images         = {
 				'beds_blue_top_above.png',
@@ -37,7 +37,7 @@ minetest.register_node( 'beds:blue_top', {
 				'beds_blue_top_side2.png',
 				'beds_blue_top_side.png',
 			      },
-	paramtype           = 'light',
+	paramtype           = 'facedir',
 	walkable            = true,
 	groups		    = { choppy = 3, oddly_breakable_by_hand = 1.5},
 	drop                = 'beds:blue',
@@ -55,7 +55,7 @@ minetest.register_node( 'beds:blue_bottom', {
 				'beds_blue_bottom_side2.png',
 				'beds_blue_bottom_side.png',
 			      },
-	paramtype           = 'light',
+	paramtype           = 'facedir',
 	walkable            = true,
 	groups		    = { choppy = 3, oddly_breakable_by_hand = 1.5},
 	drop                = 'beds:blue',
@@ -89,11 +89,11 @@ minetest.register_on_placenode(function( pos, node, placer )
 	end
 
 	if right.name == 'air' then
-		minetest.env:add_node( pos,  { name = 'beds:blue_top', param2 = newparam} )
-		minetest.env:add_node( rpos, { name = 'beds:blue_bottom' ,param2 = newparam} )
+		minetest.env:add_node( pos,  { name = 'beds:blue_top', param1 = newparam} )
+		minetest.env:add_node( rpos, { name = 'beds:blue_bottom' ,param1 = newparam} )
 	elseif left.name == 'air' then
-		minetest.env:add_node( pos,  { name = 'beds:blue_bottom' ,param2 = newparam} )
-		minetest.env:add_node( lpos, { name = 'beds:blue_top' ,param2 = newparam} )
+		minetest.env:add_node( pos,  { name = 'beds:blue_bottom' ,param1 = newparam} )
+		minetest.env:add_node( lpos, { name = 'beds:blue_top' ,param1 = newparam} )
 	else
 		minetest.env:remove_node( pos )
 		placer:get_inventory():add_item( "main", 'beds:blue' )
@@ -101,7 +101,7 @@ minetest.register_on_placenode(function( pos, node, placer )
 	end
 end)
 
-minetest.register_on_dignode = function( pos, node, digger )
+minetest.register_on_dignode(function( pos, node, digger )
 	rpos = { x = pos.x - 1, y = pos.y , z = pos.z }
 	lpos = { x = pos.x + 1, y = pos.y , z = pos.z }
 
