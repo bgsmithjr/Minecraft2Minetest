@@ -61,28 +61,47 @@ minetest.register_node( 'beds:blue_bottom', {
 	drop                = 'beds:blue',
 })
 --------------------------------------------------------------------------------
+local round = function( n )
+	if n >= 0 then
+		return math.floor( n + 0.5 )
+	else
+		return math.ceil( n - 0.5 )
+	end
+end
 
-local on_door_placed = function( pos, node, placer )
+minetest.register_on_placenode(function( pos, node, placer )
 	if node.name ~= 'beds:blue' then return end
 	rpos = { x = pos.x - 1, y = pos.y , z = pos.z }
 	lpos = { x = pos.x + 1, y = pos.y , z = pos.z }
 	right = minetest.env:get_node( rpos )
 	left = minetest.env:get_node( lpos )
 	dir = placer:get_look_dir()
+	dir = placer:get_look_dir()
+
+	if     round( dir.x ) == 1  then
+		newparam = WALLMX
+	elseif round( dir.x ) == -1 then
+		newparam = WALLPX
+	elseif round( dir.z ) == 1  then
+		newparam = WALLMZ
+	elseif round( dir.z ) == -1 then
+		newparam = WALLPZ
+	end
+
 	if right.name == 'air' then
-		minetest.env:add_node( pos,  { name = 'beds:blue_top'} )
-		minetest.env:add_node( rpos, { name = 'beds:blue_bottom'} )
+		minetest.env:add_node( pos,  { name = 'beds:blue_top', param2 = newparam} )
+		minetest.env:add_node( rpos, { name = 'beds:blue_bottom' ,param2 = newparam} )
 	elseif left.name == 'air' then
-		minetest.env:add_node( pos,  { name = 'beds:blue_bottom'} )
-		minetest.env:add_node( lpos, { name = 'beds:blue_top'} )
+		minetest.env:add_node( pos,  { name = 'beds:blue_bottom' ,param2 = newparam} )
+		minetest.env:add_node( lpos, { name = 'beds:blue_top' ,param2 = newparam} )
 	else
 		minetest.env:remove_node( pos )
 		placer:get_inventory():add_item( "main", 'beds:blue' )
 		minetest.chat_send_player( placer:get_player_name(), 'not enough space' )
 	end
-end
+end)
 
-local on_door_digged = function( pos, node, digger )
+minetest.register_on_dignode = function( pos, node, digger )
 	rpos = { x = pos.x - 1, y = pos.y , z = pos.z }
 	lpos = { x = pos.x + 1, y = pos.y , z = pos.z }
 
@@ -91,9 +110,5 @@ local on_door_digged = function( pos, node, digger )
 	elseif ( node.name == 'beds:blue_bottom' ) then
 		minetest.env:remove_node( lpos )
 	end
-end
-
-minetest.register_on_placenode( on_door_placed )
-minetest.register_on_punchnode( on_door_punched )
-minetest.register_on_dignode( on_door_digged )
+end)
 
