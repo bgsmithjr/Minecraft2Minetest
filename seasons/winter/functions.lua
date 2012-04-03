@@ -1,12 +1,19 @@
---from moreores
+function table.contains(table, element)
+  for _, value in pairs(table) do
+    if value == element then
+      return true
+    end
+  end
+  return false
+end
 
-local snowblock = {
+local snowflakes = {
 	"seasons:snowflakes"
 }
 
 local snow_gen = function( minp, maxp )
-	for c, snowblock in ipairs(snowblock) do
-		local amount = math.random( 0, 10 )
+	for c, snow in ipairs(snowflakes) do
+		local amount = math.random( 0,25 )
 		for a = 0, amount do
 			local pos = {
 				x = math.random( minp.x, maxp.x ),
@@ -16,12 +23,12 @@ local snow_gen = function( minp, maxp )
 			for i = -1, 1 do
 				for j = -1, 1 do
 					for k = -1, 1 do
-						if math.random() > 0.1 then
+						if math.random() > 0.2 then
 						else
-							local p = { x=pos.x+i,y=pos.y+j, z=pos.z+k }
+							local p = { x=pos.x+i, y=pos.y+j, z=pos.z+k }
 							local n = minetest.env:get_node( p )
 							if n.name == "air" then
-								minetest.env:add_node( p, { name = snowblock } )
+								minetest.env:add_node( p,{name= "seasons:snowflakes"} )
 							end
 						end
 					end

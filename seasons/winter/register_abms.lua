@@ -1,13 +1,3 @@
-function table.contains(table, element)
-  for _, value in pairs(table) do
-    if value == element then
-      return true
-    end
-  end
-  return false
-end
-
-
 minetest.register_abm({
 	nodenames = {"default:dirt_with_grass"},
 	neighbors = {"seasons:snowflakes"},
@@ -67,29 +57,6 @@ minetest.register_abm({
 })
 
 minetest.register_abm({
-	nodenames = {"seasons:snowflakes"},
-	interval = 1.0,
-	chance = 1,
-	action = function(pos,node,active_objects_count,active_objects_count_wider)
-		if minetest.env:get_node({x = pos.x, y = pos.y-1, z = pos.z}).name == "air" then
-		minetest.env:remove_node(pos)
-		minetest.env:add_node({x = pos.x, y = pos.y -1, z = pos.z}, {name= "seasons:snowflakes"})
-		end
-	end
-})
-
-minetest.register_abm({
-	nodenames = {"seasons:snowflakes"},
-	interval = 1.0,
-	chance = 1,
-	action = function(pos,node,active_objects_count,active_objects_count_wider)
-		if minetest.env:get_node({x = pos.x, y = pos.y-1, z = pos.z}).name ~= "air" then
-		minetest.env:remove_node(pos)
-		end
-	end
-})
-
-minetest.register_abm({
 	nodenames = {"default:water_source"},
 	neighbors = {"seasons:snowflakes"},
 	interval = 1.0,
@@ -98,5 +65,22 @@ minetest.register_abm({
 		if minetest.env:get_node_or_nil(pos) ~= nil then
 	minetest.env:add_node( pos, {name="seasons:ice"})
 		end
+	end
+})
+
+minetest.register_abm({
+	nodenames = {"seasons:snowflakes"},
+	interval = .1,
+	chance = 1,
+	action = function(pos,node,active_objects_count,active_objects_count_wider)
+	belowpos= {x = pos.x, y = pos.y - 1, z = pos.z}
+	below=minetest.env:get_node(belowpos)
+
+			if below.name == "air" then
+				minetest.env:remove_node(pos)
+				minetest.env:add_node( belowpos, {name="seasons:snowflakes"})
+			else
+				minetest.env:remove_node(pos)
+			end
 	end
 })

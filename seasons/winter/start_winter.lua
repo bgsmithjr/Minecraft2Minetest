@@ -1,3 +1,5 @@
 dofile(minetest.get_modpath("seasons").."/winter/register_nodes.lua")
 dofile(minetest.get_modpath("seasons").."/winter/register_abms.lua")
+dofile(minetest.get_modpath("seasons").."/winter/register_entities.lua")
 dofile(minetest.get_modpath("seasons").."/winter/functions.lua")
+dofile(minetest.get_modpath("seasons").."/winter/recipes.lua")

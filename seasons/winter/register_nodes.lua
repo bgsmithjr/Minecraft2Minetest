@@ -1,4 +1,3 @@
-
 minetest.register_node("seasons:dirt_with_snow", {
 	description = "Snow",
 	tile_images = {"winter_snow.png", "winter_dirt.png", "winter_dirt.png^winter_snow_side.png"},
@@ -35,19 +34,23 @@ minetest.register_node("seasons:sand", {
 	groups = {crumbly=2, cracky=3,oddly_breakable_by_hand=1},
 })
 
-minetest.register_node("seasons:snowflakes",{
-	drawtype = "plantlike",
-	tile_images = {"winter_snowflakes.png"},
-	is_ground_content = false,
-	paramtype = "light",
-	walkable = false,
-})
 
 minetest.register_node("seasons:tree", {
 	description = "Dead Tree",
 	tile_images = {"winter_tree_top.png", "winter_tree_top.png", "winter_tree.png"},
 	is_ground_content = true,
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=1},
+})
+
+minetest.register_node("seasons:snowflakes", {
+	drawtype = "plantlike",
+	tile_images = {"winter_snowflakes.png"},
+	paramtype = "light",
+	walkable = false,
+	selection_box = {
+			type="none",
+			
+			},
 })
 
 minetest.register_node("seasons:leaves", {
