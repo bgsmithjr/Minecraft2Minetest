@@ -10,6 +10,7 @@ end
 
 minetest.register_abm({
 	nodenames = {"default:dirt_with_grass"},
+	neighbors = {"seasons:snowflakes"},
 	interval = 1.0,
 	chance = 1,
 	action = function(pos, node, active_objects_count, active_objects_count_wider)
@@ -21,6 +22,7 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = {"default:dirt"},
+	neighbors = {"seasons:snowflakes"},
 	interval = 1.0,
 	chance = 1,
 	action = function(pos, node, active_objects_count, active_objects_count_wider)
@@ -32,6 +34,7 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = {"default:sand"},
+	neighbors = {"seasons:snowflakes"},
 	interval = 1.0,
 	chance = 1,
 	action = function(pos, node, active_objects_count, active_objects_count_wider)
@@ -62,3 +65,27 @@ minetest.register_abm({
 		end
 	end
 })
+
+minetest.register_abm({
+	nodenames = {"seasons:snowflakes"},
+	interval = 1.0,
+	chance = 1,
+	action = function(pos,node,active_objects_count,active_objects_count_wider)
+		if minetest.env:get_node({x = pos.x, y = pos.y-1, z = pos.z}).name == "air" then
+		minetest.env:remove_node(pos)
+		minetest.env:add_node({x = pos.x, y = pos.y -1, z = pos.z}, {name= "seasons:snowflakes"})
+		end
+	end
+})
+
+minetest.register_abm({
+	nodenames = {"seasons:snowflakes"},
+	interval = 1.0,
+	chance = 1,
+	action = function(pos,node,active_objects_count,active_objects_count_wider)
+		if minetest.env:get_node({x = pos.x, y = pos.y-1, z = pos.z}).name ~= "air" then
+		minetest.env:remove_node(pos)
+		end
+	end
+})
+

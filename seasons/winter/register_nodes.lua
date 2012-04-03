@@ -23,8 +23,9 @@ minetest.register_node("seasons:sand", {
 
 minetest.register_node("seasons:snowflakes",{
 	drawtype = "plantlike",
-	tile_images = {"winter_snowflakes.png","winter_snowflakes.1.png"},
+	tile_images = {"winter_snowflakes.png"},
 	is_ground_content = false,
+	paramtype = "light",
 	walkable = false,
 })
 
