@@ -4,12 +4,26 @@ minetest.register_node("seasons:dirt_with_snow", {
 	tile_images = {"winter_snow.png", "winter_dirt.png", "winter_dirt.png^winter_snow_side.png"},
 	is_ground_content = true,
 	groups = {crumbly=2, cracky=3,oddly_breakable_by_hand=1},
-	drop ='craft "minecraft:snowball" 4',
+	drop ="seasons:snowblock",
+})
+
+minetest.register_node("seasons:ice", {
+	description = "Ice",
+	tile_images = {"winter_ice.png"},
+	is_ground_content = true,
+	groups = {crumbly=1, cracky=2,oddly_breakable_by_hand=0.5},
 })
 
 minetest.register_node("seasons:dirt", {
 	description = "Frozen Dirt",
 	tile_images = {"winter_dirt.png"},
+	is_ground_content = true,
+	groups = {crumbly=2, cracky=3,oddly_breakable_by_hand=1},
+})
+
+minetest.register_node("seasons:snowblock", {
+	description = "Snow Block",
+	tile_images = {"winter_snow.png"},
 	is_ground_content = true,
 	groups = {crumbly=2, cracky=3,oddly_breakable_by_hand=1},
 })

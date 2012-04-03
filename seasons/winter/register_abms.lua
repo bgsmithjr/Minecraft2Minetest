@@ -89,3 +89,14 @@ minetest.register_abm({
 	end
 })
 
+minetest.register_abm({
+	nodenames = {"default:water_source"},
+	neighbors = {"seasons:snowflakes"},
+	interval = 1.0,
+	chance = 1,
+	action = function(pos,node,active_objects_count,active_objects_count_wider)
+		if minetest.env:get_node_or_nil(pos) ~= nil then
+	minetest.env:add_node( pos, {name="seasons:ice"})
+		end
+	end
+})
